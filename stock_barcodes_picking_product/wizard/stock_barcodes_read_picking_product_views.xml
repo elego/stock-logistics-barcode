@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_barcodes_read_picking_product_form" model="ir.ui.view">
+        <field name="name">stock.barcodes.read.picking.product.form</field>
+        <field name="model">wiz.stock.barcodes.read.picking.product</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form"/>
+        <field name="arch" type="xml">
+            <field name="location_id" position="before">
+                <field name="picking_id" invisible="not context.get('default_picking_id', False)" force_save="1"/>
+                <field name="picking_type_code" invisible="1" force_save="1"/>
+                <field name="location_dest_id" force_save="1"/>
+            </field>
+            <field name="product_qty" position="after">
+                <field name="picking_product_qty"/>
+            </field>
+        </field>
+    </record>
+
+    <!--
+     Open wizard in current target option to avoid that the wizard is
+     closed after any button click,
+    -->
+    <record id="action_stock_barcodes_read_picking_product" model="ir.actions.act_window">
+        <field name="res_model">wiz.stock.barcodes.read.picking.product</field>
+        <field name="name">Barcodes Read</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_stock_barcodes_read_picking_product_form"/>
+        <field name="target">current</field>
+    </record>
+
+</odoo>
